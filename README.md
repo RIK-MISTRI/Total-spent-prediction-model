@@ -1,59 +1,126 @@
-# Total Spent Prediction Model (Ridge Regression)
+# 🛒 Customer Purchase Behavior Analysis  
+*A Data Visualization & Correlation Study Using Python*
 
-## 🌟 Project Overview
+This repository contains a complete exploratory data analysis (EDA) of customer purchase behavior. The goal is to understand how **Quantity**, **Price Per Unit**, and other features influence **Total Spent**, and to identify meaningful relationships through visualizations and correlation analysis.
 
-This project focuses on building a highly accurate regression model to predict the **Total Spent** for a retail transaction. The core challenge in the original dataset was the strong multicollinearity between Price Per Unit, Quantity, and the target variable Total Spent (since $\text{Total Spent} \approx \text{Price Per Unit} \times \text{Quantity}$).
+---
 
-The solution involved a crucial **Feature Engineering** step to address this multiplicative relationship, leading to an exceptionally high-performing and stable **Ridge Regression** model.
+## 📌 Project Overview  
+This project analyzes a synthetic/real customer transaction dataset containing features like:
 
-## 📈 Final Performance Summary
+- **Category**
+- **Price Per Unit**
+- **Quantity**
+- **Total Spent**
+- **Payment Method**
+- **Location**
+- **Discount Applied**
 
-The model was trained on $70\%$ of the data and evaluated on the remaining $30\%$ (test set).
+The project demonstrates:
 
-| Metric | Value | Assessment |
-| :--- | :--- | :--- |
-| **$R^2$ Score** | **0.9516** | **Outstanding.** The model explains over 95% of the variance in Total Spent. |
-| **RMSE** | **$20.64$** | The average prediction error is approximately $\$20.64$. |
-| **Average Total Spent** | **$129.65$** | The mean transaction value. |
-| **Error Rate** | **$15.92\%$** | The RMSE is only $15.92\%$ of the average Total Spent. |
+✔ Data cleaning & preprocessing  
+✔ Data visualization using `matplotlib` & `seaborn`  
+✔ Correlation analysis  
+✔ Scatter plots to analyze spending patterns  
+✔ Interpretation of results  
 
-## 🛠️ Methodology: The Key to Success
+---
 
-The high performance was achieved through three essential data science steps:
+## 📊 Visualizations
 
-### 1. Feature Engineering (The Interaction Term)
-The **core problem** of multicollinearity was solved by creating an **Interaction Feature**:
+### **1. Quantity × PricePerUnit vs Total Spent – Scatter Plot**
 
-$$\mathbf{\text{Quantity\_x\_PricePerUnit}} = \text{Quantity} \times \text{Price Per Unit}$$
+This scatter plot visualizes how the product of **Quantity × Price Per Unit** relates to **Total Spent**.
 
-This single feature transforms the non-linear multiplicative relationship into a stable, linear one, as visually confirmed by the scatter plot .
+#### 🔍 Key Insights:
+- As expected, **Total Spent** increases as `Quantity × PricePerUnit` increases.
+- There is a strong positive linear trend.
+- Some points deviate slightly, likely due to applied discounts or variation in purchase behavior.
 
-### 2. Data Preprocessing & Encoding
-All features were converted to a machine-readable format:
+**Plot Example:**
 
-* **Missing Values:** All missing values were imputed using the **mean** (for numeric columns) or the **mode** (for categorical columns).
-* **Encoding:** Discount Applied, Location, Payment Method, and Category were converted to numerical representations using a mix of **One-Hot Encoding with `drop='first'`** (for binary features) and **Ordinal Encoding** (for Payment Method and Category).
-* **Scaling:** All features were standardized using **$\text{StandardScaler}$**, which is vital for Ridge Regression.
+*(Displayed as generated in the notebook)*
 
-### 3. Modeling and Regularization
-A **Ridge Regression** model ($\alpha=0.1$) was chosen to stabilize the coefficients and manage any minor residual multicollinearity.
+![Scatter Plot](image_placeholder_scatter)
 
-## 🧐 Final Model Interpretation (Business Insights)
+---
 
-The coefficients show the **relative importance** of each feature due to the prior scaling of $X$.
+### **2. Correlation Heatmap**
 
-| Feature | Coefficient | Marginal Impact Interpretation |
-| :--- | :--- | :--- |
-| **$\text{Quantity\_x\_PricePerUnit}$** | **$90.19$** | **Highest Magnitude.** Confirms this is the primary predictor of Total Spent. |
-| **Category** | **$0.34$** | **Positive Impact.** Transactions in higher-coded categories are associated with a slight **increase** in Total Spent, holding other factors constant. |
-| **Location** | **$-0.14$** | **Negative Impact.** Purchases in the location encoded as $1$ (likely In-store) tend to have a slightly **lower** Total Spent compared to the other location (Online). |
-| **Payment Method** | **$0.10$** | **Small Positive Impact.** Transactions with a higher-coded Payment Method are associated with a minor **increase** in Total Spent. |
+The heatmap visualizes the correlation matrix for all numerical and encoded categorical variables.
 
-## 💻 Repository Structure
+#### 🔍 Key Insights:
+- **Total Spent** is highly correlated with:
+  - **Quantity (0.71)**
+  - **Price Per Unit (0.60)**
+- Other features such as *Category*, *Payment Method*, *Location*, and *Discount Applied* show **very low or near-zero correlation**, meaning they do not strongly impact spending.
+- This confirms that **Quantity** and **Price Per Unit** are the major drivers of revenue.
 
-The project is structured to allow easy reproduction of the results:
+**Heatmap Example:**
 
-* `retail_store_sales.csv`: The raw dataset.
-* **`total_spent_prediction.ipynb`**: The main Jupyter Notebook detailing all steps from data loading, preprocessing, feature engineering, scaling, training, evaluation, and final interpretation.
-* `Corelation_heatmap.png`: The initial correlation analysis.
-* `model_visualization.png`: The scatter plot validating the interaction feature.
+![Heatmap](image_placeholder_heatmap)
+
+---
+
+## 🧠 Interpretation of Results
+
+### ✔ Strongest Contributors to Total Spent  
+| Variable | Correlation with Total Spent | Interpretation |
+|---------|------------------------------|---------------|
+| **Quantity** | **0.71** | More items → higher total |
+| **Price Per Unit** | **0.60** | Costlier items → higher spending |
+
+This means customers who buy **more quantity** or buy **costlier items** predictably spend more.
+
+---
+
+### ✔ Negligible Correlation Variables  
+Features such as:
+
+- Category  
+- Payment Method  
+- Location  
+- Discount Applied  
+
+show **very weak or no correlations**, implying:
+
+👉 They do **not directly influence** revenue significantly  
+👉 They may influence *customer preference or segmentation* instead
+
+---
+
+## 🛠 Technologies Used  
+
+| Tool / Library | Purpose |
+|----------------|---------|
+| **Python** | Data processing & modeling |
+| **Pandas** | Data manipulation |
+| **NumPy** | Numerical computation |
+| **Matplotlib** | Scatter plots |
+| **Seaborn** | Heatmaps & statistical visualizations |
+| **Jupyter Notebook** | Interactive analysis |
+
+---
+
+## 📁 Folder Structure
+
+    📦 Customer-Purchase-Analysis
+    ├── 📄 README.md
+    ├── 📓 analysis.ipynb
+    ├── 📊 images/
+    │   ├── scatter_plot.png
+    │   └── heatmap.png
+    └── 📂 data/
+        └── dataset.csv
+
+
+
+---
+
+## 🚀 How to Run the Project
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/yourusername/customer-purchase-analysis.git
+cd customer-purchase-analysis
+
