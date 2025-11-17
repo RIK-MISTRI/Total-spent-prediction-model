@@ -41,7 +41,7 @@ This scatter plot visualizes how the product of **Quantity × Price Per Unit** r
 
 *(Displayed as generated in the notebook)*
 
-![Scatter Plot](image_placeholder_scatter)
+![Scatter Plot](machine_learning/model_visualization.png)
 
 ---
 
@@ -58,7 +58,7 @@ The heatmap visualizes the correlation matrix for all numerical and encoded cate
 
 **Heatmap Example:**
 
-![Heatmap](image_placeholder_heatmap)
+![Heatmap](machine_learning/Corelation_heatmap.png)
 
 ---
 
