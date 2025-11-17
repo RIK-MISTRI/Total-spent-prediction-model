@@ -2,7 +2,7 @@
 
 ## 🌟 Project Overview
 
-This project focuses on building a highly accurate regression model to predict the **Total Spent** for a retail transaction. The core challenge in the original dataset was the strong multicollinearity between $\text{Price Per Unit}$, $\text{Quantity}$, and the target variable $\text{Total Spent}$ (since $\text{Total Spent} \approx \text{Price} \times \text{Quantity}$).
+This project focuses on building a highly accurate regression model to predict the **Total Spent** for a retail transaction. The core challenge in the original dataset was the strong multicollinearity between Price Per Unit, Quantity, and the target variable Total Spent (since $\text{Total Spent} \approx \text{Price Per Unit} \times \text{Quantity}$).
 
 The solution involved a crucial **Feature Engineering** step to address this multiplicative relationship, leading to an exceptionally high-performing and stable **Ridge Regression** model.
 
@@ -12,10 +12,10 @@ The model was trained on $70\%$ of the data and evaluated on the remaining $30\%
 
 | Metric | Value | Assessment |
 | :--- | :--- | :--- |
-| **$R^2$ Score** | **0.9516** | **Outstanding.** The model explains over 95% of the variance in $\text{Total Spent}$. |
+| **$R^2$ Score** | **0.9516** | **Outstanding.** The model explains over 95% of the variance in Total Spent. |
 | **RMSE** | **$20.64$** | The average prediction error is approximately $\$20.64$. |
-| **Average $\text{Total Spent}$** | **$129.65$** | The mean transaction value. |
-| **Error Rate** | **$15.92\%$** | The RMSE is only $15.92\%$ of the average $\text{Total Spent}$. |
+| **Average Total Spent** | **$129.65$** | The mean transaction value. |
+| **Error Rate** | **$15.92\%$** | The RMSE is only $15.92\%$ of the average Total Spent. |
 
 ## 🛠️ Methodology: The Key to Success
 
@@ -32,7 +32,7 @@ This single feature transforms the non-linear multiplicative relationship into a
 All features were converted to a machine-readable format:
 
 * **Missing Values:** All missing values were imputed using the **mean** (for numeric columns) or the **mode** (for categorical columns).
-* **Encoding:** $\text{Discount Applied}$, $\text{Location}$, $\text{Payment Method}$, and $\text{Category}$ were converted to numerical representations using a mix of **One-Hot Encoding with `drop='first'`** (for binary features) and **Ordinal Encoding** (for $\text{Payment Method}$ and $\text{Category}$).
+* **Encoding:** Discount Applied, Location, Payment Method, and Category were converted to numerical representations using a mix of **One-Hot Encoding with `drop='first'`** (for binary features) and **Ordinal Encoding** (for Payment Method and Category).
 * **Scaling:** All features were standardized using **$\text{StandardScaler}$**, which is vital for Ridge Regression.
 
 ### 3. Modeling and Regularization
@@ -44,10 +44,10 @@ The coefficients show the **relative importance** of each feature due to the pri
 
 | Feature | Coefficient | Marginal Impact Interpretation |
 | :--- | :--- | :--- |
-| **$\text{Quantity\_x\_PricePerUnit}$** | **$90.19$** | **Highest Magnitude.** Confirms this is the primary predictor of $\text{Total Spent}$. |
-| **$\text{Category}$** | **$0.34$** | **Positive Impact.** Transactions in higher-coded categories are associated with a slight **increase** in $\text{Total Spent}$, holding other factors constant. |
-| **$\text{Location}$** | **$-0.14$** | **Negative Impact.** Purchases in the location encoded as $1$ (likely In-store) tend to have a slightly **lower** $\text{Total Spent}$ compared to the other location (Online). |
-| **$\text{Payment Method}$** | **$0.10$** | **Small Positive Impact.** Transactions with a higher-coded $\text{Payment Method}$ are associated with a minor **increase** in $\text{Total Spent}$. |
+| **$\text{Quantity\_x\_PricePerUnit}$** | **$90.19$** | **Highest Magnitude.** Confirms this is the primary predictor of Total Spent. |
+| **Category** | **$0.34$** | **Positive Impact.** Transactions in higher-coded categories are associated with a slight **increase** in Total Spent, holding other factors constant. |
+| **Location** | **$-0.14$** | **Negative Impact.** Purchases in the location encoded as $1$ (likely In-store) tend to have a slightly **lower** Total Spent compared to the other location (Online). |
+| **Payment Method** | **$0.10$** | **Small Positive Impact.** Transactions with a higher-coded Payment Method are associated with a minor **increase** in Total Spent. |
 
 ## 💻 Repository Structure
 
